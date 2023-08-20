@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 
 import '../Apis/api_keys.dart';
+import '../Pages/sharedprefrence.dart';
 
 
 class LoginScreen extends StatefulWidget {
@@ -40,8 +41,13 @@ class _LoginScreenState extends State<LoginScreen> {
       );
 
       if (response.statusCode == 200) {
-        var data = jsonDecode(response.body.toString());
+        final json = jsonDecode(response.body) as Map;
+        print(json['fname']);
+        print(json['lname']);
+        print(json['wallet']);
         print('Login successfully');
+        MySharedPrefClass.preferences!.setString('token', json['token']);
+
         Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(builder: (context) => const HomePage()),

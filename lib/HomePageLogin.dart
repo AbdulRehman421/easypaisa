@@ -1,4 +1,5 @@
 import 'package:easypaisa/Auth/register.dart';
+import 'package:easypaisa/HomePage.dart';
 import 'package:easypaisa/Pages/Add_Cash.dart';
 import 'package:easypaisa/Pages/My_Wallet.dart';
 import 'package:easypaisa/Pages/Reward.dart';
@@ -58,7 +59,7 @@ class _HomePageLoginState extends State<HomePageLogin> {
                     color: Colors.green,
                     child: InkWell(
                       onTap: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => LoginScreen(),));
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage(),));
                         // MyWallet();
                       },
                       child: Padding(

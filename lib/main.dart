@@ -1,8 +1,15 @@
 import 'package:easypaisa/HomePage.dart';
 import 'package:easypaisa/SplashScreen.dart';
 import 'package:flutter/material.dart';
-void main(){
+import 'package:shared_preferences/shared_preferences.dart';
+
+import 'Pages/sharedprefrence.dart';
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  MySharedPrefClass.preferences = await SharedPreferences.getInstance();
   runApp(MyApp());
+
+
 }
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
