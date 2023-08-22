@@ -216,6 +216,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.1"
+  mask_text_input_formatter:
+    dependency: "direct main"
+    description:
+      name: mask_text_input_formatter
+      sha256: "2056a9b8303f71003b9c06c6f71443504f3ca9f4b79b1aa40c9f0f62f9d312cf"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.5.0"
   matcher:
     dependency: transitive
     description:
@@ -373,6 +381,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.99"
+  smooth_page_indicator:
+    dependency: "direct main"
+    description:
+      name: smooth_page_indicator
+      sha256: "725bc638d5e79df0c84658e1291449996943f93bacbc2cec49963dbbab48d8ae"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.1.0"
   source_span:
     dependency: transitive
     description:

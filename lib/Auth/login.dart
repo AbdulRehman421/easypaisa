@@ -5,6 +5,7 @@ import 'package:easypaisa/HomePage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 import '../Apis/api_keys.dart';
 import '../Pages/sharedprefrence.dart';
@@ -22,6 +23,11 @@ class _LoginScreenState extends State<LoginScreen> {
 
   TextEditingController passwordController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
+  final maskFormatter = new MaskTextInputFormatter(
+      mask: '03#########',
+      filter: { "#": RegExp(r'[0-9]') },
+      type: MaskAutoCompletionType.lazy
+  );
 
   void dispose() {
     passwordController.dispose();
@@ -93,6 +99,7 @@ class _LoginScreenState extends State<LoginScreen> {
               child: TextFormField(
                 keyboardType: TextInputType.phone,
                 controller: phoneController,
+                inputFormatters: [maskFormatter],
                 decoration: const InputDecoration(
                    border: OutlineInputBorder(),
                   labelText: 'Enter Phone Number',

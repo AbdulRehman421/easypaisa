@@ -4,6 +4,7 @@ import 'package:easypaisa/Auth/login.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 import '../Apis/api_keys.dart';
 import 'package:http/http.dart' as http;
@@ -23,7 +24,18 @@ class _SignupPageState extends State<SignupPage> {
    TextEditingController phoneController = TextEditingController();
    TextEditingController cnicController = TextEditingController();
    TextEditingController passwordController = TextEditingController();
-   
+
+  final maskFormatterPhone = new MaskTextInputFormatter(
+      mask: '03#########',
+      filter: { "#": RegExp(r'[0-9]') },
+      type: MaskAutoCompletionType.lazy
+  );
+  final maskFormatterCnic = new MaskTextInputFormatter(
+      mask: '#############',
+      filter: { "#": RegExp(r'[0-9]') },
+      type: MaskAutoCompletionType.lazy
+  );
+
   Future<void> register(phone, password, fName, lName, email, cnicNumber, ) async {
 
 
@@ -153,6 +165,7 @@ class _SignupPageState extends State<SignupPage> {
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             child: TextFormField(
               keyboardType: TextInputType.phone,
+              inputFormatters: [maskFormatterPhone],
               controller: phoneController,
               decoration: const InputDecoration(
                   border: OutlineInputBorder(),
@@ -171,6 +184,7 @@ class _SignupPageState extends State<SignupPage> {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             child: TextFormField(
+              inputFormatters: [maskFormatterCnic],
               keyboardType: TextInputType.phone,
               controller: cnicController,
               decoration: const InputDecoration(

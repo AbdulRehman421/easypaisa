@@ -2,17 +2,21 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:easypaisa/HomePageLogin.dart';
+import 'package:easypaisa/PageIndicators/page1.dart';
+import 'package:easypaisa/PageIndicators/page2.dart';
 import 'package:easypaisa/Pages/Account.dart';
 import 'package:easypaisa/Pages/Add_Cash.dart';
 import 'package:easypaisa/Pages/My_Wallet.dart';
 import 'package:easypaisa/Pages/Reward.dart';
 import 'package:easypaisa/Pages/Upgrade_Account.dart';
 import 'package:easypaisa/Pages/qrscanner.dart';
-import 'package:easypaisa/Pages/sendmoney.dart';
+import 'package:easypaisa/Pages/amountSend.dart';
+import 'package:easypaisa/Pages/sendMoney.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import 'Apis/api_keys.dart';
 import 'Auth/login.dart';
@@ -27,6 +31,8 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   String? token = MySharedPrefClass.preferences!.getString('token');
+
+  final _pageController  = PageController();
 
   void initState() {
     super.initState();
@@ -106,11 +112,7 @@ class _HomePageState extends State<HomePage> {
             IconButton(onPressed: () {}, icon: Icon(Icons.search)),
             IconButton(
                 onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => LoginScreen(),
-                      ));
+
                 },
                 icon: Icon(Icons.notifications_none_rounded)),
           ],
@@ -270,11 +272,9 @@ class _HomePageState extends State<HomePage> {
                                     ),
                                     InkWell(
                                       onTap: () {
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (context) => AddCash(),
-                                            ));
+                                        setState(() {
+                                          dialogueBox();
+                                        });
                                       },
                                       child: Container(
                                           width: 119,
@@ -311,7 +311,7 @@ class _HomePageState extends State<HomePage> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => QrScanner(),
+                              builder: (context) => SendMoney(),
                             ));
                       },
                       child: Padding(
@@ -385,184 +385,26 @@ class _HomePageState extends State<HomePage> {
                       borderRadius: BorderRadius.circular(20),
                       color: Colors.white),
                   margin: const EdgeInsets.only(left: 0),
-                  child: ListView(
-                    scrollDirection: Axis.horizontal,
+                  child: PageView(
+                    controller: _pageController,
                     children: [
-                      Center(
-                        child: Padding(
-                          padding: const EdgeInsets.all(15),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Row(
-                                children: [
-                                  Image.asset(
-                                    'assets/images/easyload.png',
-                                    width: 80,
-                                    height: 70,
-                                  ),
-                                  Image.asset(
-                                    'assets/images/easyloan.png',
-                                    width: 85,
-                                    height: 80,
-                                  ),
-                                  Image.asset(
-                                    'assets/images/tohfa.png',
-                                    width: 80,
-                                    height: 66,
-                                  ),
-                                  Image.asset(
-                                    'assets/images/invite.png',
-                                    width: 80,
-                                    height: 65,
-                                  ),
-                                ],
-                              ),
-                              SizedBox(height: 20),
-                              Row(
-                                children: [
-                                  Image.asset(
-                                    'assets/images/rast.png',
-                                    width: 90,
-                                    height: 80,
-                                  ),
-                                  Image.asset(
-                                    'assets/images/miniapp.png',
-                                    width: 80,
-                                    height: 70,
-                                  ),
-                                  Image.asset(
-                                    'assets/images/savings.png',
-                                    width: 80,
-                                    height: 75,
-                                  ),
-                                  Image.asset(
-                                    'assets/images/buynow.png',
-                                    width: 80,
-                                    height: 80,
-                                  ),
-                                ],
-                              ),
-                              SizedBox(height: 20),
-                              Row(
-                                children: [
-                                  Image.asset(
-                                    'assets/images/insurance.png',
-                                    width: 80,
-                                    height: 70,
-                                  ),
-                                  Image.asset(
-                                    'assets/images/donation.png',
-                                    width: 80,
-                                    height: 70,
-                                  ),
-                                  Image.asset(
-                                    'assets/images/rs1.png',
-                                    width: 80,
-                                    height: 70,
-                                  ),
-                                  Image.asset(
-                                    'assets/images/more.png',
-                                    width: 80,
-                                    height: 65,
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        width: 20,
-                      ),
-                      Center(
-                        child: Padding(
-                          padding: const EdgeInsets.all(15),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Row(
-                                children: [
-                                  Image.asset(
-                                    'assets/images/easyload.png',
-                                    width: 80,
-                                    height: 70,
-                                  ),
-                                  Image.asset(
-                                    'assets/images/easyloan.png',
-                                    width: 85,
-                                    height: 80,
-                                  ),
-                                  Image.asset(
-                                    'assets/images/tohfa.png',
-                                    width: 80,
-                                    height: 66,
-                                  ),
-                                  Image.asset(
-                                    'assets/images/invite.png',
-                                    width: 80,
-                                    height: 65,
-                                  ),
-                                ],
-                              ),
-                              SizedBox(height: 20),
-                              Row(
-                                children: [
-                                  Image.asset(
-                                    'assets/images/rast.png',
-                                    width: 90,
-                                    height: 80,
-                                  ),
-                                  Image.asset(
-                                    'assets/images/miniapp.png',
-                                    width: 80,
-                                    height: 70,
-                                  ),
-                                  Image.asset(
-                                    'assets/images/savings.png',
-                                    width: 80,
-                                    height: 75,
-                                  ),
-                                  Image.asset(
-                                    'assets/images/buynow.png',
-                                    width: 80,
-                                    height: 80,
-                                  ),
-                                ],
-                              ),
-                              SizedBox(height: 20),
-                              Row(
-                                children: [
-                                  Image.asset(
-                                    'assets/images/insurance.png',
-                                    width: 80,
-                                    height: 70,
-                                  ),
-                                  Image.asset(
-                                    'assets/images/donation.png',
-                                    width: 80,
-                                    height: 70,
-                                  ),
-                                  Image.asset(
-                                    'assets/images/rs1.png',
-                                    width: 80,
-                                    height: 70,
-                                  ),
-                                  Image.asset(
-                                    'assets/images/more.png',
-                                    width: 80,
-                                    height: 65,
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ], //
+                      Page1(),
+                      Page2(),
+
+                    ],
+
                   ),
+
+                ),
+                SizedBox(height: 10,),
+                SmoothPageIndicator(
+                    controller: _pageController,
+                    count: 2,
+                effect: SwapEffect(
+                  activeDotColor: Colors.green,
+                  dotHeight: 10,
+                  dotWidth: 10,
+                ),
                 )
               ],
             ),
@@ -621,9 +463,7 @@ class _HomePageState extends State<HomePage> {
                     MaterialButton(
                       minWidth: 40,
                       onPressed: () {
-                        setState(() {
-                          dialogueBox();
-                        });
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => QrScanner(),));
                       },
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -696,7 +536,29 @@ class _HomePageState extends State<HomePage> {
         return Container(
           width: 250,
           height: 250,
-          child: Image.network(Apis.baseUrl + qrcode),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                // color: Colors.white,
+                width: 310,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    TextButton.icon(onPressed: () {
+                      Navigator.pop(context);
+                    }, icon: Icon(Icons.close,color: Colors.black,size: 50), label: Text(''), ),
+                  ],
+                ),
+              ),
+              // IconButton(onPressed: () {
+              //   Navigator.pop(context);
+              // }, icon: Icon(Icons.close)),
+              // Text('Heelo'),
+              Image.network(Apis.baseUrl + qrcode),
+            ],
+          ),
         );
       },
     );

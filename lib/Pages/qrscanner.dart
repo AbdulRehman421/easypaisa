@@ -30,7 +30,7 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:easypaisa/HomePage.dart';
-import 'package:easypaisa/Pages/sendmoney.dart';
+import 'package:easypaisa/Pages/amountSend.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
@@ -76,7 +76,7 @@ class _QrScannerState extends State<QrScanner> {
   void reassemble() {
     super.reassemble();
     if (Platform.isAndroid) {
-      controller!.pauseCamera();
+      controller!.stopCamera();
     }
     controller!.resumeCamera();
   }
@@ -189,9 +189,10 @@ class _QrScannerState extends State<QrScanner> {
       this.controller = controller;
     });
     controller.scannedDataStream.listen((scanData) {
-      setState(() {
+      setState(()  {
         result = scanData;
-        Navigator.push(context, MaterialPageRoute(builder: (context) => SendMoney(results: result!.code),));
+        Navigator.push(context, MaterialPageRoute(builder: (context) => AmountSend(results: result!.code),));
+         controller?.stopCamera();
 
       });
     });

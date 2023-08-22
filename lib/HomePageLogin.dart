@@ -4,11 +4,14 @@ import 'package:easypaisa/Pages/Add_Cash.dart';
 import 'package:easypaisa/Pages/My_Wallet.dart';
 import 'package:easypaisa/Pages/Reward.dart';
 import 'package:easypaisa/Pages/Upgrade_Account.dart';
-import 'package:easypaisa/Pages/sendmoney.dart';
+import 'package:easypaisa/Pages/amountSend.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import 'Auth/login.dart';
+import 'PageIndicators/page1.dart';
+import 'PageIndicators/page2.dart';
 
 class HomePageLogin extends StatefulWidget {
   const HomePageLogin({super.key});
@@ -18,6 +21,8 @@ class HomePageLogin extends StatefulWidget {
 }
 
 class _HomePageLoginState extends State<HomePageLogin> {
+  final _pageController  = PageController();
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -31,16 +36,9 @@ class _HomePageLoginState extends State<HomePageLogin> {
           centerTitle: true,
           backgroundColor: Colors.green,
           title: Text('easypaisa'),
-          leading: InkWell(
-            child: Padding(
-              padding: const EdgeInsets.all(12),
-              child: CircleAvatar(
-                backgroundImage: AssetImage('assets/images/ep1.jpg'),
-                radius: 20,
-              ),
-            ),
-
-          ),
+          leading: IconButton(onPressed: () {
+            Navigator.push(context, MaterialPageRoute(builder: (context) => LoginScreen(),));
+          }, icon: Icon(Icons.login)),
           actions: [
             IconButton(onPressed: () {
 
@@ -59,7 +57,7 @@ class _HomePageLoginState extends State<HomePageLogin> {
                     color: Colors.green,
                     child: InkWell(
                       onTap: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage(),));
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => LoginScreen(),));
                         // MyWallet();
                       },
                       child: Padding(
@@ -222,91 +220,27 @@ class _HomePageLoginState extends State<HomePageLogin> {
                     height: 300,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
-                        color: Colors.white
+                        color: Colors.white),
+                    margin: const EdgeInsets.only(left: 0),
+                    child: PageView(
+                      controller: _pageController,
+                      children: [
+                        Page1(),
+                        Page2(),
+
+                      ],
+
                     ),
 
-                    margin: const EdgeInsets.only(left: 0),
-                    child: ListView(
-
-                      scrollDirection: Axis.horizontal,
-                      children: [
-                        Center(
-                          child: Padding(
-                            padding: const EdgeInsets.all(15),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Row(
-                                  children: [
-                                    Image.asset('assets/images/easyload.png',width: 80,height: 70,),
-                                    Image.asset('assets/images/easyloan.png',width: 85,height: 80,),
-                                    Image.asset('assets/images/tohfa.png',width: 80,height: 66,),
-                                    Image.asset('assets/images/invite.png',width: 80,height: 65,),
-                                  ],
-                                ),
-                                SizedBox(height: 20),
-                                Row(
-                                  children: [
-                                    Image.asset('assets/images/rast.png',width: 90,height: 80,),
-                                    Image.asset('assets/images/miniapp.png',width: 80,height: 70,),
-                                    Image.asset('assets/images/savings.png',width: 80,height: 75,),
-                                    Image.asset('assets/images/buynow.png',width: 80,height: 80,),
-                                  ],
-                                ),
-                                SizedBox(height: 20),
-                                Row(
-                                  children: [
-                                    Image.asset('assets/images/insurance.png',width: 80,height: 70,),
-                                    Image.asset('assets/images/donation.png',width: 80,height: 70,),
-                                    Image.asset('assets/images/rs1.png',width: 80,height: 70,),
-                                    Image.asset('assets/images/more.png',width: 80,height: 65,),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        SizedBox(width: 20,),
-                        Center(
-                          child: Padding(
-                            padding: const EdgeInsets.all(15),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Row(
-                                  children: [
-                                    Image.asset('assets/images/easyload.png',width: 80,height: 70,),
-                                    Image.asset('assets/images/easyloan.png',width: 85,height: 80,),
-                                    Image.asset('assets/images/tohfa.png',width: 80,height: 66,),
-                                    Image.asset('assets/images/invite.png',width: 80,height: 65,),
-                                  ],
-                                ),
-                                SizedBox(height: 20),
-                                Row(
-                                  children: [
-                                    Image.asset('assets/images/rast.png',width: 90,height: 80,),
-                                    Image.asset('assets/images/miniapp.png',width: 80,height: 70,),
-                                    Image.asset('assets/images/savings.png',width: 80,height: 75,),
-                                    Image.asset('assets/images/buynow.png',width: 80,height: 80,),
-                                  ],
-                                ),
-                                SizedBox(height: 20),
-                                Row(
-
-                                  children: [
-                                    Image.asset('assets/images/insurance.png',width: 80,height: 70,),
-                                    Image.asset('assets/images/donation.png',width: 80,height: 70,),
-                                    Image.asset('assets/images/rs1.png',width: 80,height: 70,),
-                                    Image.asset('assets/images/more.png',width: 80,height: 65,),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ],//
+                  ),
+                  SizedBox(height: 10,),
+                  SmoothPageIndicator(
+                    controller: _pageController,
+                    count: 2,
+                    effect: SwapEffect(
+                      activeDotColor: Colors.green,
+                      dotHeight: 10,
+                      dotWidth: 10,
                     ),
                   )
 
